@@ -1,9 +1,9 @@
 Varför ska JAG använda Cucumber?
 ================================
 
-(På måndag kommer Anthony Eden till Valtech och pratar om "Taking Cucumber to the next level". Det är i allafall jag excalterad över. )
+...Först lite intro om slides/video från Anthonys dragning etc... 
 
-I veckan så hade Anthony Eden en bejublad session om "Taking Cucumber to the next level". Slides från detta kommer snart. 
+--------------
 
 I samband med detta tänkte vi ta tillfället i akt att beskriva för de som inte känner så mycket om BDD och Cucumber. 
 
