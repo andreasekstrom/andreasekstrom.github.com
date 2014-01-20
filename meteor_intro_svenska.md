@@ -30,21 +30,21 @@ En modelldefinition på servern är också den som används av klienten. Sätte
 Database everywhere
 -------------------
 
-Detta är en sak som ter sig lite märkligt i början, men med hjälp av Publish/Subscribe så har klienten en egen "MongoDB-databas" i webbläsaren (kallad *minimongo*). Detta gör att man kan använda samma API för databas-access på klient- och serversida. *minimongo* är alltså en typ av cache av en delmängd av databasen på serversidan, med den finessen att cachen automatiskt uppdateras. Om man t.ex. prenumererar på de 10 senaste kommentarerna i en chattjänst, så kommer de automatiskt att uppdateras på alla anslutna klienter när en ny kommentar läggs till på server-sidan. Till Meteor 1.0 kommer ingen annan datakälla än MongoDB stödjas, men man kan nog förvänta sig att det sedan kommer adapters för andra databaser.
+Detta är en sak som ter sig lite märkligt i början, men med hjälp av Publish/Subscribe så har klienten en egen "MongoDB-databas" i webbläsaren (kallad *minimongo*). Detta gör att man kan använda samma API för databas-access på klient- och serversida. *minimongo* är alltså en typ av cache av en delmängd av databasen på serversidan, med den finessen att cachen automatiskt uppdateras. Om man t.ex. prenumererar på de 10 senaste kommentarerna i en chattjänst, så kommer de automatiskt att uppdateras på alla anslutna klienter när en ny kommentar läggs till på server-sidan. Till Meteor 1.0 kommer ingen annan datakälla än [MongoDB](http://www.mongodb.org/) stödjas, men man kan nog förvänta sig att det sedan kommer adapters för andra databaser.
 
 Säkerheten hanteras genom att man definierar kanaler från databasen (exempelvis "Mina vänner") på servern och att sedan klienten kan läsa och skriva till endast denna kanal. Det gör att nycklar som `user_id` alltid är scopade för den inloggade användaren. Klienten kan bete sig som om det bara finns en användare i systemet och skriva och läsa utan `user_id`.
 
 Latency compensation
 --------------------
 
-Även om servern är långt från klienten, eller med en dålig uppkoppling, så är tanken att Meteor-applikationer alltid ska ge svar inom millisekunder. Eftersom databasen finns även på klienten så kan uppdatering och tillägg ske även om klienten för tillfället inte har kontakt med servern. När servern sedan svarar så synkas databaserna automatiskt. Det gör att vi kan få väldigt responsiva applikationer, en känska av att de svarar utan någon fördröjning alls.
+Ponera att du sitter på ett SJ-tåg med dålig 3G-uppkoppling till servern. Med standardutförandet i Meteor så ska applikationen ändå alltid ge svar inom millisekunder. Eftersom databasen finns även på klienten så kan uppdatering och tillägg ske även om klienten för tillfället inte har kontakt med servern. När servern sedan svarar så synkas databaserna automatiskt. Det gör att vi kan få väldigt responsiva applikationer, en känsla av att de svarar utan någon fördröjning alls.
 
-För en utvecklare betyder detta också att man kan slippa mycket av den så kallade *callback spaghetti* som lätt uppstår när man endast jobbar med asynkron läsning och skrivning. Databasen är lokal och *in-memory*, så den kan hanteras lite mer som en synkron källa där man tycker att det behövs. En "bakgrundstråd" synkroniserar ändringarna asynkront utan att du behöver göra koden införstådd med detta.
+De som känner till Node.js-utveckling vet att Node.js handlar väldigt mycket om att att hantera asynkrona applikationer. Meteor försöker göra det lite lättare, och undvika den så kallade *callback spaghetti* som lätt uppstår när man endast jobbar med asynkron läsning och skrivning. På klienten är databasen lokal och *in-memory*, så den kan hanteras lite mer som en synkron källa där man tycker att det behövs. En "bakgrundstråd" synkroniserar ändringarna asynkront utan att du behöver göra koden införstådd med detta.
 
 Exempelapplikation
 ------------------
 
-För några veckor sedan så höll jag en kompetenslunch om Meteor på Valtech, där jag försökte belysa dessa saker i en demo. Titta gärna på [demo-anteckningarna](https://github.com/andreasekstrom/demo-meteor-leaderboard) för att lära er mer om detta.
+För några veckor sedan så höll jag en kompetenslunch om Meteor på Valtech, där jag försökte belysa dessa aspekter ovan i en demo. Titta gärna på [demo-anteckningarna](https://github.com/andreasekstrom/demo-meteor-leaderboard) för att lära er mer om detta.
 
 Does it scale?
 --------------
@@ -63,10 +63,10 @@ Några saker som talar för Meteor är:
 * Meteor 1.0 förväntas inom några månader...
 * Enkel hosting av applikationer (Affärsmodellen är en hostingplattform helt anpassad för Meteor-applikationer, liknande Heroku, som finansierar utvecklingen. Hosting-lösningen är så vitt jag förstått tänkt att bli publik ungefär i samband med 1.0-releasen.)
 
-Om ni vill bli inspirerade av vad som är möjligt så rekommenderar jag den [officiella Meteor videon](https://www.meteor.com/authcast).
+Om ni vill bli inspirerade av vad som är möjligt så rekommenderar jag den [officiella Meteor-videon](https://www.meteor.com/authcast).
 När ni väl blivit inspirerade så har de samlat en massa bra länkar för att lära sig mer på [https://www.meteor.com/learn-meteor](https://www.meteor.com/learn-meteor).
 
-För egen del så har jag sen jag började följa Meteor och Meteor-communityn lärt mig en massa nytt om JavaScript, Node.js och MongoDB. Bara det är värt en del!
+För egen del så har jag, sen jag började följa Meteor och Meteor-communityn, lärt mig en massa nytt om JavaScript, Node.js och MongoDB. Bara det är värt en del!
 
 Din första Meteor app?
 ----------------------
